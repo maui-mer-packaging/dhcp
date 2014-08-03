@@ -244,6 +244,7 @@ exit 0
 %defattr(-,root,root,-)
 %doc LICENSE README RELNOTES doc/References.txt
 %attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz
+%attr(0644,root,root) %{_mandir}/man5/dhcp-eval.5.gz
 # >> files common
 # << files common
 
@@ -260,6 +261,7 @@ exit 0
 %attr(0644,root,root) %{_mandir}/man5/dhclient.conf.5.gz
 %attr(0644,root,root) %{_mandir}/man5/dhclient.leases.5.gz
 %attr(0644,root,root) %{_mandir}/man8/dhclient.8.gz
+%attr(0644,root,root) %{_mandir}/man8/dhclient-script.8.gz
 # >> files dhclient
 # << files dhclient
 
@@ -268,6 +270,7 @@ exit 0
 %doc doc/IANA-arp-parameters doc/api+protocol
 %{_includedir}/dhcpctl
 %{_includedir}/omapip
+%{_includedir}/isc-dhcp
 %attr(0644,root,root) %{_mandir}/man3/dhcpctl.3.gz
 %attr(0644,root,root) %{_mandir}/man3/omapi.3.gz
 # >> files devel
