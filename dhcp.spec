@@ -181,6 +181,10 @@ touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd6.leases
 %{__mkdir} -p %{buildroot}%{_libdir}/pm-utils/sleep.d
 %{__install} -p -m 0755 %{SOURCE5} %{buildroot}%{_libdir}/pm-utils/sleep.d
 
+# Copy sample conf files into position (called by doc macro)
+%{__cp} -p doc/examples/dhclient-dhcpv6.conf client/dhclient6.conf.example
+%{__cp} -p doc/examples/dhcpd-dhcpv6.conf server/dhcpd6.conf.example
+
 # Install default (empty) dhcpd.conf:
 %{__mkdir} -p %{buildroot}%{dhcpconfdir}
 %{__cat} << EOF > %{buildroot}%{dhcpconfdir}/dhcpd.conf
