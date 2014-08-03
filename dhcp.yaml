@@ -1,0 +1,152 @@
+Name: dhcp
+Version: 4.3.0
+Release: 1
+Summary: Dynamic host configuration protocol software
+Description: |
+  DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
+  individual devices on an IP network to get their own network
+  configuration information (IP address, subnetmask, broadcast address,
+  etc.) from a DHCP server. The overall purpose of DHCP is to make it
+  easier to administer a large network.
+
+  To use DHCP on your network, install a DHCP service (or relay agent),
+  and on clients run a DHCP client daemon.  The dhcp package provides
+  the ISC DHCP service and relay agent.
+Group: Applications/System
+License: ISC
+URL: https://www.isc.org/software/dhcp
+Sources:
+    - "%{name}-%{version}.tar.xz"
+    - dhcpd4.service
+    - dhcpd6.service
+SetupOptions: -q -n src
+
+PkgBR:
+    - autoconf
+    - automake
+    - libtool
+    - iproute
+PkgConfigBR:
+    - systemd
+    - libsystemd
+
+RequiresPre:
+    - shadow-utils
+RequiresPost:
+    - coreutils
+    - systemd
+RequiresPreUn:
+    - systemd
+RequiresPostUn:
+    - systemd
+
+ConfigOptions:
+    - --with-srv-lease-file=%{_localstatedir}/lib/dhcp/dhcpd.leases
+    - --with-srv6-lease-file=%{_localstatedir}/lib/dhcp/dhcpd6.leases
+    - --with-cli-lease-file=%{_localstatedir}/lib/dhclient/dhclient.leases
+    - --with-cli6-lease-file=%{_localstatedir}/lib/dhclient/dhclient6.leases
+
+Files:
+    - "%doc server/dhcpd.conf.example server/dhcpd6.conf.example"
+    - "%doc contrib/ldap/ contrib/dhcp-lease-list.pl"
+    - "%attr(0750,root,root) %dir %{dhcpconfdir}"
+    - "%attr(0755,dhcpd,dhcpd) %dir %{_localstatedir}/lib/dhcpd"
+    - "%attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd.leases"
+    - "%attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd6.leases"
+    - "%config(noreplace) %{_sysconfdir}/sysconfig/dhcpd"
+    - "%config(noreplace) %{dhcpconfdir}/dhcpd.conf"
+    - "%config(noreplace) %{dhcpconfdir}/dhcpd6.conf"
+    - "%dir %{_sysconfdir}/NetworkManager"
+    - "%dir %{_sysconfdir}/NetworkManager/dispatcher.d"
+    - "%{_sysconfdir}/NetworkManager/dispatcher.d/12-dhcpd"
+    - "%attr(0644,root,root) %{_unitdir}/dhcpd.service"
+    - "%attr(0644,root,root) %{_unitdir}/dhcpd6.service"
+    - "%attr(0644,root,root) %{_unitdir}/dhcrelay.service"
+    - "%{_sbindir}/dhcpd"
+    - "%{_sbindir}/dhcrelay"
+    - "%{_bindir}/omshell"
+    - "%attr(0644,root,root) %{_mandir}/man1/omshell.1.gz"
+    - "%attr(0644,root,root) %{_mandir}/man5/dhcpd.conf.5.gz"
+    - "%attr(0644,root,root) %{_mandir}/man5/dhcpd.leases.5.gz"
+    - "%attr(0644,root,root) %{_mandir}/man8/dhcpd.8.gz"
+    - "%attr(0644,root,root) %{_mandir}/man8/dhcrelay.8.gz"
+
+SubPackages:
+    - Name: libs
+      Summary: Shared libraries used by ISC dhcp client and server
+      Group: System/Libraries
+      Description: |
+        This package contains shared libraries used by ISC dhcp client and server.
+      Files:
+          - "%{_libdir}/libdhcpctl.so.*"
+          - "%{_libdir}/libomapi.so.*"
+    - Name: common
+      Summary: Common files used by ISC dhcp client and server
+      Group: Applications/System
+      Description: |
+        DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
+        individual devices on an IP network to get their own network
+        configuration information (IP address, subnetmask, broadcast address,
+        etc.) from a DHCP server. The overall purpose of DHCP is to make it
+        easier to administer a large network.
+
+        This package provides common files used by dhcp and dhclient package.
+      Requires:
+          - dhcp-libs%{?_isa} = %{version}-%{release}
+      Files:
+          - "%doc LICENSE README RELNOTES doc/References.txt"
+          - "%attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz"
+    - Name: dhclient
+      AsWholeName: true
+      Summary: Provides the ISC DHCP client daemon and dhclient-script
+      Group: Applications/System
+      Description: |
+        DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
+        individual devices on an IP network to get their own network
+        configuration information (IP address, subnetmask, broadcast address,
+        etc.) from a DHCP server. The overall purpose of DHCP is to make it
+        easier to administer a large network.
+
+        To use DHCP on your network, install a DHCP service (or relay agent),
+        and on clients run a DHCP client daemon.  The dhclient package
+        provides the ISC DHCP client daemon.
+      Requires:
+          - coreutils
+          - grep
+          - hostname
+          - iproute
+          - iputils
+          - sed
+          - dhcp-common = %{version}-%{release}
+          - dhcp-libs%{?_isa} = %{version}-%{release}
+      Files:
+          - "%doc client/dhclient.conf.example client/dhclient6.conf.example README.dhclient.d"
+          - "%attr(0750,root,root) %dir %{dhcpconfdir}"
+          - "%dir %{dhcpconfdir}/dhclient.d"
+          - "%dir %{_localstatedir}/lib/dhclient"
+          - "%dir %{_sysconfdir}/NetworkManager"
+          - "%dir %{_sysconfdir}/NetworkManager/dispatcher.d"
+          - "%{_sysconfdir}/NetworkManager/dispatcher.d/11-dhclient"
+          - "%{_sbindir}/dhclient"
+          - "%{_sbindir}/dhclient-script"
+          - "%attr(0755,root,root) %{_libdir}/pm-utils/sleep.d/56dhclient"
+          - "%attr(0644,root,root) %{_mandir}/man5/dhclient.conf.5.gz"
+          - "%attr(0644,root,root) %{_mandir}/man5/dhclient.leases.5.gz"
+          - "%attr(0644,root,root) %{_mandir}/man8/dhclient.8.gz"
+          - "%attr(0644,root,root) %{_mandir}/man8/dhclient-script.8.gz"
+    - Name: devel
+      Summary: Development headers and libraries for interfacing to the DHCP server
+      Group: Development/System
+      Description: |
+        Header files and API documentation for using the ISC DHCP libraries.  The
+        libdhcpctl and libomapi static libraries are also included in this package.
+      Requires:
+          - dhcp-libs%{?_isa} = %{version}-%{release}
+      Files:
+          - "%doc doc/IANA-arp-parameters doc/api+protocol"
+          - "%{_includedir}/dhcpctl"
+          - "%{_includedir}/omapip"
+          - "%{_libdir}/libdhcpctl.so"
+          - "%{_libdir}/libomapi.so"
+          - "%attr(0644,root,root) %{_mandir}/man3/dhcpctl.3.gz"
+          - "%attr(0644,root,root) %{_mandir}/man3/omapi.3.gz"
