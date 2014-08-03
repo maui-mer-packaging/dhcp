@@ -168,8 +168,8 @@ touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd6.leases
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lib/dhclient/
 
 # Install systemd units
-%{__install} -p -m 0644 -D %{SOURCE1} %{buildroot}/%{_lib}/systemd/systemd/dhcpd4.service
-%{__install} -p -m 0644 -D %{SOURCE2} %{buildroot}/%{_lib}/systemd/systemd/dhcpd6.service
+%{__install} -p -m 0644 -D %{SOURCE1} %{buildroot}%{_unitdir}/dhcpd4.service
+%{__install} -p -m 0644 -D %{SOURCE2} %{buildroot}%{_unitdir}/dhcpd6.service
 
 # NetworkManager dispatcher script
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d
@@ -221,9 +221,8 @@ exit 0
 %dir %{_sysconfdir}/NetworkManager
 %dir %{_sysconfdir}/NetworkManager/dispatcher.d
 %{_sysconfdir}/NetworkManager/dispatcher.d/12-dhcpd
-%attr(0644,root,root) %{_unitdir}/dhcpd.service
+%attr(0644,root,root) %{_unitdir}/dhcpd4.service
 %attr(0644,root,root) %{_unitdir}/dhcpd6.service
-%attr(0644,root,root) %{_unitdir}/dhcrelay.service
 %{_sbindir}/dhcpd
 %{_sbindir}/dhcrelay
 %{_bindir}/omshell
