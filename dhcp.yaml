@@ -75,14 +75,6 @@ Files:
     - "%attr(0644,root,root) %{_mandir}/man8/dhcrelay.8.gz"
 
 SubPackages:
-    - Name: libs
-      Summary: Shared libraries used by ISC dhcp client and server
-      Group: System/Libraries
-      Description: |
-        This package contains shared libraries used by ISC dhcp client and server.
-      Files:
-          - "%{_libdir}/libdhcpctl.so.*"
-          - "%{_libdir}/libomapi.so.*"
     - Name: common
       Summary: Common files used by ISC dhcp client and server
       Group: Applications/System
@@ -94,8 +86,6 @@ SubPackages:
         easier to administer a large network.
 
         This package provides common files used by dhcp and dhclient package.
-      Requires:
-          - dhcp-libs%{?_isa} = %{version}-%{release}
       Files:
           - "%doc LICENSE README RELNOTES doc/References.txt"
           - "%attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz"
@@ -121,7 +111,6 @@ SubPackages:
           - iputils
           - sed
           - dhcp-common = %{version}-%{release}
-          - dhcp-libs%{?_isa} = %{version}-%{release}
       Files:
           - "%doc client/dhclient.conf.example client/dhclient6.conf.example README.dhclient.d"
           - "%attr(0750,root,root) %dir %{dhcpconfdir}"
@@ -143,8 +132,6 @@ SubPackages:
       Description: |
         Header files and API documentation for using the ISC DHCP libraries.  The
         libdhcpctl and libomapi static libraries are also included in this package.
-      Requires:
-          - dhcp-libs%{?_isa} = %{version}-%{release}
       Files:
           - "%doc doc/IANA-arp-parameters doc/api+protocol"
           - "%{_includedir}/dhcpctl"

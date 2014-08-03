@@ -46,22 +46,10 @@ and on clients run a DHCP client daemon.  The dhcp package provides
 the ISC DHCP service and relay agent.
 
 
-%package libs
-Summary:    Shared libraries used by ISC dhcp client and server
-Group:      System/Libraries
-Requires:   %{name} = %{version}-%{release}
-Requires(post): /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
-
-%description libs
-This package contains shared libraries used by ISC dhcp client and server.
-
-
 %package common
 Summary:    Common files used by ISC dhcp client and server
 Group:      Applications/System
 Requires:   %{name} = %{version}-%{release}
-Requires:   dhcp-libs%{?_isa} = %{version}-%{release}
 
 %description common
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -84,7 +72,6 @@ Requires:   iproute
 Requires:   iputils
 Requires:   sed
 Requires:   dhcp-common = %{version}-%{release}
-Requires:   dhcp-libs%{?_isa} = %{version}-%{release}
 
 %description -n dhclient
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -102,7 +89,6 @@ provides the ISC DHCP client daemon.
 Summary:    Development headers and libraries for interfacing to the DHCP server
 Group:      Development/System
 Requires:   %{name} = %{version}-%{release}
-Requires:   dhcp-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 Header files and API documentation for using the ISC DHCP libraries.  The
@@ -228,10 +214,6 @@ chown -R dhcpd:dhcpd %{_localstatedir}/lib/dhcpd/
 exit 0
 # << post
 
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
-
 %files
 %defattr(-,root,root,-)
 %doc server/dhcpd.conf.example server/dhcpd6.conf.example
@@ -257,13 +239,6 @@ exit 0
 %attr(0644,root,root) %{_mandir}/man8/dhcrelay.8.gz
 # >> files
 # << files
-
-%files libs
-%defattr(-,root,root,-)
-%{_libdir}/libdhcpctl.so.*
-%{_libdir}/libomapi.so.*
-# >> files libs
-# << files libs
 
 %files common
 %defattr(-,root,root,-)
