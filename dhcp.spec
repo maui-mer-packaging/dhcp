@@ -64,7 +64,6 @@ This package provides common files used by dhcp and dhclient package.
 %package -n dhclient
 Summary:    Provides the ISC DHCP client daemon
 Group:      Applications/System
-Requires:   %{name} = %{version}-%{release}
 Requires:   coreutils
 Requires:   grep
 Requires:   net-tools

@@ -92,6 +92,7 @@ SubPackages:
           - "%attr(0644,root,root) %{_mandir}/man5/dhcp-eval.5.gz"
     - Name: dhclient
       AsWholeName: true
+      AutoDepend: false
       Summary: Provides the ISC DHCP client daemon
       Group: Applications/System
       Description: |
