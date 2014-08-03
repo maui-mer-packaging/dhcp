@@ -67,7 +67,7 @@ Group:      Applications/System
 Requires:   %{name} = %{version}-%{release}
 Requires:   coreutils
 Requires:   grep
-Requires:   hostname
+Requires:   net-tools
 Requires:   iproute
 Requires:   iputils
 Requires:   sed

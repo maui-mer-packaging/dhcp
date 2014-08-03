@@ -107,7 +107,7 @@ SubPackages:
       Requires:
           - coreutils
           - grep
-          - hostname
+          - net-tools
           - iproute
           - iputils
           - sed
