@@ -19,6 +19,9 @@ Sources:
     - "%{name}-%{version}.tar.xz"
     - dhcpd4.service
     - dhcpd6.service
+    - 11-dhclient
+    - 12-dhcpd
+    - 56dhclient
 SetupOptions: -q -n src
 
 PkgBR:
@@ -53,7 +56,6 @@ Files:
     - "%attr(0755,dhcpd,dhcpd) %dir %{_localstatedir}/lib/dhcpd"
     - "%attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd.leases"
     - "%attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd6.leases"
-    - "%config(noreplace) %{_sysconfdir}/sysconfig/dhcpd"
     - "%config(noreplace) %{dhcpconfdir}/dhcpd.conf"
     - "%config(noreplace) %{dhcpconfdir}/dhcpd6.conf"
     - "%dir %{_sysconfdir}/NetworkManager"

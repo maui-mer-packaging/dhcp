@@ -17,6 +17,9 @@ URL:        https://www.isc.org/software/dhcp
 Source0:    %{name}-%{version}.tar.xz
 Source1:    dhcpd4.service
 Source2:    dhcpd6.service
+Source3:    11-dhclient
+Source4:    12-dhcpd
+Source5:    56dhclient
 Source100:  dhcp.yaml
 Requires(pre): shadow-utils
 Requires(preun): systemd
@@ -167,6 +170,15 @@ touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd6.leases
 # Install systemd units
 %{__install} -p -m 0644 -D %{SOURCE1} %{buildroot}/%{_lib}/systemd/systemd/dhcpd4.service
 %{__install} -p -m 0644 -D %{SOURCE2} %{buildroot}/%{_lib}/systemd/systemd/dhcpd6.service
+
+# NetworkManager dispatcher script
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d
+%{__install} -p -m 0755 %{SOURCE3} %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d
+%{__install} -p -m 0755 %{SOURCE4} %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d
+
+# pm-utils script to handle suspend/resume and dhclient leases
+%{__mkdir} -p %{buildroot}%{_libdir}/pm-utils/sleep.d
+%{__install} -p -m 0755 %{SOURCE5} %{buildroot}%{_libdir}/pm-utils/sleep.d
 # << install post
 
 %pre
@@ -204,7 +216,6 @@ exit 0
 %attr(0755,dhcpd,dhcpd) %dir %{_localstatedir}/lib/dhcpd
 %attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd.leases
 %attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd6.leases
-%config(noreplace) %{_sysconfdir}/sysconfig/dhcpd
 %config(noreplace) %{dhcpconfdir}/dhcpd.conf
 %config(noreplace) %{dhcpconfdir}/dhcpd6.conf
 %dir %{_sysconfdir}/NetworkManager
