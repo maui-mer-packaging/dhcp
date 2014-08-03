@@ -54,6 +54,7 @@ ConfigOptions:
 Files:
     - "%doc server/dhcpd.conf.example server/dhcpd6.conf.example"
     - "%doc contrib/ldap/ contrib/dhcp-lease-list.pl"
+    - "%doc LICENSE README RELNOTES doc/References.txt"
     - "%attr(0750,root,root) %dir %{dhcpconfdir}"
     - "%attr(0755,dhcpd,dhcpd) %dir %{_localstatedir}/lib/dhcpd"
     - "%attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd.leases"
@@ -73,23 +74,10 @@ Files:
     - "%attr(0644,root,root) %{_mandir}/man5/dhcpd.leases.5.gz"
     - "%attr(0644,root,root) %{_mandir}/man8/dhcpd.8.gz"
     - "%attr(0644,root,root) %{_mandir}/man8/dhcrelay.8.gz"
+    - "%attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz"
+    - "%attr(0644,root,root) %{_mandir}/man5/dhcp-eval.5.gz"
 
 SubPackages:
-    - Name: common
-      Summary: Common files used by ISC dhcp client and server
-      Group: Applications/System
-      Description: |
-        DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
-        individual devices on an IP network to get their own network
-        configuration information (IP address, subnetmask, broadcast address,
-        etc.) from a DHCP server. The overall purpose of DHCP is to make it
-        easier to administer a large network.
-
-        This package provides common files used by dhcp and dhclient package.
-      Files:
-          - "%doc LICENSE README RELNOTES doc/References.txt"
-          - "%attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz"
-          - "%attr(0644,root,root) %{_mandir}/man5/dhcp-eval.5.gz"
     - Name: dhclient
       AsWholeName: true
       AutoDepend: false
@@ -112,7 +100,6 @@ SubPackages:
           - iproute
           - iputils
           - sed
-          - dhcp-common = %{version}-%{release}
       Files:
           - "%doc client/dhclient.conf.example client/dhclient6.conf.example"
           - "%attr(0750,root,root) %dir %{dhcpconfdir}"

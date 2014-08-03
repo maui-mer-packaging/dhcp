@@ -46,21 +46,6 @@ and on clients run a DHCP client daemon.  The dhcp package provides
 the ISC DHCP service and relay agent.
 
 
-%package common
-Summary:    Common files used by ISC dhcp client and server
-Group:      Applications/System
-Requires:   %{name} = %{version}-%{release}
-
-%description common
-DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
-individual devices on an IP network to get their own network
-configuration information (IP address, subnetmask, broadcast address,
-etc.) from a DHCP server. The overall purpose of DHCP is to make it
-easier to administer a large network.
-
-This package provides common files used by dhcp and dhclient package.
-
-
 %package -n dhclient
 Summary:    Provides the ISC DHCP client daemon
 Group:      Applications/System
@@ -70,7 +55,6 @@ Requires:   net-tools
 Requires:   iproute
 Requires:   iputils
 Requires:   sed
-Requires:   dhcp-common = %{version}-%{release}
 
 %description -n dhclient
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -217,6 +201,7 @@ exit 0
 %defattr(-,root,root,-)
 %doc server/dhcpd.conf.example server/dhcpd6.conf.example
 %doc contrib/ldap/ contrib/dhcp-lease-list.pl
+%doc LICENSE README RELNOTES doc/References.txt
 %attr(0750,root,root) %dir %{dhcpconfdir}
 %attr(0755,dhcpd,dhcpd) %dir %{_localstatedir}/lib/dhcpd
 %attr(0644,dhcpd,dhcpd) %verify(mode) %config(noreplace) %{_localstatedir}/lib/dhcpd/dhcpd.leases
@@ -236,16 +221,10 @@ exit 0
 %attr(0644,root,root) %{_mandir}/man5/dhcpd.leases.5.gz
 %attr(0644,root,root) %{_mandir}/man8/dhcpd.8.gz
 %attr(0644,root,root) %{_mandir}/man8/dhcrelay.8.gz
-# >> files
-# << files
-
-%files common
-%defattr(-,root,root,-)
-%doc LICENSE README RELNOTES doc/References.txt
 %attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz
 %attr(0644,root,root) %{_mandir}/man5/dhcp-eval.5.gz
-# >> files common
-# << files common
+# >> files
+# << files
 
 %files -n dhclient
 %defattr(-,root,root,-)
