@@ -268,8 +268,6 @@ exit 0
 %doc doc/IANA-arp-parameters doc/api+protocol
 %{_includedir}/dhcpctl
 %{_includedir}/omapip
-%{_libdir}/libdhcpctl.so
-%{_libdir}/libomapi.so
 %attr(0644,root,root) %{_mandir}/man3/dhcpctl.3.gz
 %attr(0644,root,root) %{_mandir}/man3/omapi.3.gz
 # >> files devel
