@@ -112,7 +112,7 @@ SubPackages:
           - sed
           - dhcp-common = %{version}-%{release}
       Files:
-          - "%doc client/dhclient.conf.example client/dhclient6.conf.example README.dhclient.d"
+          - "%doc client/dhclient.conf.example client/dhclient6.conf.example"
           - "%attr(0750,root,root) %dir %{dhcpconfdir}"
           - "%dir %{dhcpconfdir}/dhclient.d"
           - "%dir %{_localstatedir}/lib/dhclient"

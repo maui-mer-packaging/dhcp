@@ -249,7 +249,7 @@ exit 0
 
 %files -n dhclient
 %defattr(-,root,root,-)
-%doc client/dhclient.conf.example client/dhclient6.conf.example README.dhclient.d
+%doc client/dhclient.conf.example client/dhclient6.conf.example
 %attr(0750,root,root) %dir %{dhcpconfdir}
 %dir %{dhcpconfdir}/dhclient.d
 %dir %{_localstatedir}/lib/dhclient
