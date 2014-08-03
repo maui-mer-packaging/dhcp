@@ -7,6 +7,7 @@ Name:       dhcp
 
 # >> macros
 # << macros
+%define dhcpconfdir %{_sysconfdir}/dhcp
 
 Summary:    Dynamic host configuration protocol software
 Version:    4.3.0
@@ -179,6 +180,25 @@ touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd6.leases
 # pm-utils script to handle suspend/resume and dhclient leases
 %{__mkdir} -p %{buildroot}%{_libdir}/pm-utils/sleep.d
 %{__install} -p -m 0755 %{SOURCE5} %{buildroot}%{_libdir}/pm-utils/sleep.d
+
+# Install default (empty) dhcpd.conf:
+%{__mkdir} -p %{buildroot}%{dhcpconfdir}
+%{__cat} << EOF > %{buildroot}%{dhcpconfdir}/dhcpd.conf
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+EOF
+
+# Install default (empty) dhcpd6.conf:
+%{__cat} << EOF > %{buildroot}%{dhcpconfdir}/dhcpd6.conf
+#
+# DHCPv6 Server Configuration file.
+#   see /usr/share/doc/dhcp/dhcpd6.conf.example
+#   see dhcpd.conf(5) man page
+#
+EOF
 # << install post
 
 %pre

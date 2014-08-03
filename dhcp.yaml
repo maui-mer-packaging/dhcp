@@ -22,6 +22,8 @@ Sources:
     - 11-dhclient
     - 12-dhcpd
     - 56dhclient
+Macros:
+    - dhcpconfdir;%{_sysconfdir}/dhcp
 SetupOptions: -q -n src
 
 PkgBR:
