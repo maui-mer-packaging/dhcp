@@ -62,7 +62,7 @@ This package provides common files used by dhcp and dhclient package.
 
 
 %package -n dhclient
-Summary:    Provides the ISC DHCP client daemon and dhclient-script
+Summary:    Provides the ISC DHCP client daemon
 Group:      Applications/System
 Requires:   %{name} = %{version}-%{release}
 Requires:   coreutils
@@ -251,18 +251,15 @@ exit 0
 %defattr(-,root,root,-)
 %doc client/dhclient.conf.example client/dhclient6.conf.example
 %attr(0750,root,root) %dir %{dhcpconfdir}
-%dir %{dhcpconfdir}/dhclient.d
 %dir %{_localstatedir}/lib/dhclient
 %dir %{_sysconfdir}/NetworkManager
 %dir %{_sysconfdir}/NetworkManager/dispatcher.d
 %{_sysconfdir}/NetworkManager/dispatcher.d/11-dhclient
 %{_sbindir}/dhclient
-%{_sbindir}/dhclient-script
 %attr(0755,root,root) %{_libdir}/pm-utils/sleep.d/56dhclient
 %attr(0644,root,root) %{_mandir}/man5/dhclient.conf.5.gz
 %attr(0644,root,root) %{_mandir}/man5/dhclient.leases.5.gz
 %attr(0644,root,root) %{_mandir}/man8/dhclient.8.gz
-%attr(0644,root,root) %{_mandir}/man8/dhclient-script.8.gz
 # >> files dhclient
 # << files dhclient
 
